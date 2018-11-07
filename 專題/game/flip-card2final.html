@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flipcard</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<style>
+    body {
+        font-family: "微軟正黑體";
+
+        margin: 50px;
+        background: #eee;
+
+    }
+
+    .container {
+        /*perspective:1000px;*/
+        /*perspective:1000px;*/
+    }
+
+    .box img {
+        width: 300px;
+    }
+
+    .card {
+        position: relative;
+        transform-style: preserve-3d;
+        float: left;
+        margin: 0 20px 20px;
+        width: 200px;
+        height: 280px;
+        /*height:400px;*/
+    }
+
+    .card2 {
+        position: relative;
+        transform-style: preserve-3d;
+        float: left;
+        margin: 0 20px 20px;
+        width: 200px;
+        height: 280px;
+        /*height:400px;*/
+    }
+
+    .card.active {
+        transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+    }
+
+    .card img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .front {
+        transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+    }
+
+    .back {}
+
+    .transition {
+        transition: all .5s;
+        -webkit-transition: all .5s;
+    }
+
+    .box:hover {
+        transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2>翻牌遊戲</h2>
+        <h5>試著找出兩兩一組的卡牌</h5>
+        <hr>
+        <div class="py-3">結果: <span id="result"></span></div>
+        <div class="card transition" data-card="card-4">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/batman.jpg" alt="">
+            </div>
+        </div>
+        <div class="card transition" data-card="card-1">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/dr_strange.jpg" alt="">
+            </div>
+        </div>
+        <div class="card transition" data-card="card-2">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/dr_fate.jpg" alt="">
+            </div>
+        </div>
+        <div class="card transition" data-card="card-3">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/daredevil.jpg" alt="">
+            </div>
+        </div>
+        <div class="card transition" data-card="card-2">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/dr_fate.jpg" alt="">
+            </div>
+        </div>
+        <div class="card transition" data-card="card-3">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/daredevil.jpg" alt="">
+            </div>
+        </div>
+        <div class="card transition" data-card="card-4">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/batman.jpg" alt="">
+            </div>
+        </div>
+        <div class="card transition" data-card="card-1">
+            <div class="card_wrap">
+                <img class="back" src="../sample/images/card.jpg">
+                <img class="front" src="../sample/images/dr_strange.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // $(".card").on("click", function () {
+        //     $(this).toggleClass("active");
+        // })
+        var count = $(".card").length;
+        $(".card").on("click", function () {
+            let cardOpen = $(".card.active").length;
+            $("#result").text("")
+            // console.log(cardOpen);
+            if (cardOpen >= 2) {
+                if ($(this).hasClass("active")) {
+                    // console.log("it's open");
+                    $(this).removeClass("active")
+
+                }
+            }
+            else {
+                $(this).toggleClass("active");
+
+            }
+            cardOpen = $(".card.active").length;
+
+            if (cardOpen == 2) {
+                // 老師寫法
+                var lastCardId = "";
+                $(".card.active").each(function () {
+                    let cardId = $(this).attr("data-card");
+                    // console.log(cardId)
+                    if (lastCardId == cardId) {
+                        // console.log("win");
+                        $("#result").text("恭喜!")
+                        $(".card.active").addClass("finish");
+
+                        setTimeout(function () {
+                            $(".card.active").children().css("display", "none");
+                            $(".card.active").removeClass("transition").removeClass("card").addClass("card2");
+                        }, 500);
+                        if ($(".finish").length == count) {
+                            setTimeout(function () { alert("恭喜你全翻到了"); }, 10);
+
+                        };
+                    }
+                    else {
+                        console.log("lose");
+                        $("#result").text("錯誤!")
+                        setTimeout(function () {
+                            $(".card.active").removeClass("active");
+                        }, 1000);
+
+
+                    }
+                    lastCardId = cardId;
+
+                });
+
+
+                // if ($(".card.active").attr("data-card") == $(".card.active").attr("data-card")) {
+                //     console.log("win")
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

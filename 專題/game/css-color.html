@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Draw</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+          <!-- favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: "微軟正黑體";
+            background: #c8c8c8;
+        }
+
+        .container h4 {
+            align-self: center;
+        }
+
+        .box {
+            width: 120px;
+            height: 120px;
+            background: red;
+            transition: .5s;
+            left: 0;
+            top: 0;
+        }
+
+        .circle {
+            height: 64px;
+            min-width: 64px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 10px;
+            border: 2px solid lightblue;
+        }
+
+        .circle2 {
+            height: 64px;
+            min-width: 64px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 10px;
+            border: 2px solid lightblue;
+
+        }
+
+        #box {
+            width: 600px;
+            height: 500px;
+        }
+
+        #box2 {
+            width: 600px;
+            height: 0px;
+            background-color: orange;
+        }
+
+        #rect {
+            position: relative;
+            width: 600px;
+            height: 500px;
+            background-color: aquamarine;
+            background-color: white;
+
+        }
+
+        .ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            /* border: 1px solid black; */
+            border-radius: 50%;
+            pointer-events: none;
+            /* 不要感應到任何滑鼠的動作 */
+        }
+
+        .activeColor {
+            border: 3px solid black;
+        }
+
+        .ballSize {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            margin: 20px;
+        }
+        .ball2{
+            width: 30px;
+            height: 30px;
+        }
+        .ball3{
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>小畫布</h2>
+        <h5>可以自由選擇背景色和畫筆顏色</h5>
+        <hr>
+        <div class="d-flex" id="colorSelect">
+            <h4>畫布顏色</h4>
+
+
+        </div>
+        <div class="d-flex" id="colorSelect2">
+            <h4>畫筆顏色</h4>
+
+
+        </div>
+
+        <div class="d-flex  align-items-center" id="colorSelect3">
+            <h4>畫筆粗細</h4>
+            <div class="ball1 ballSize"></div>
+            <div class="ball2 ballSize"></div>
+            <div class="ball3 ballSize"></div>
+
+        </div>
+
+        <div id="rect">
+            <div id="box"> </div>
+            <div id="box2"></div>
+        </div>
+        <div id="info"></div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script>
+        var color = ["red", "orange", "yellow", "green", "blue", "blueViolet", "white"];
+        var colorIndex = 0;
+        // $(".circle").each(function () {
+        //     $(this).css("background", color[colorIndex])
+        //     colorIndex++;
+        // })
+        // $(".circle2").each(function () {
+        //     $(this).css("background", color[colorIndex])
+        //     colorIndex++;
+        // })
+        for (let i = 0; i < color.length; i++) {
+            $("#colorSelect").append(`<div class="circle" style="background: ${color[i]}" ></div>`);
+
+            // if (i=0){
+            //     $(".circle").addClass("activeColor");
+            // }else{
+            //     console.log(i)
+            // }
+        }
+        for (let i = 0; i < color.length; i++) {
+            $("#colorSelect2").append(`<div class="circle2" style="background: ${color[i]}"></div>`);
+
+
+        }
+        $(".circle").on("click", function () {
+
+            let color = $(this).css("background-color")
+            $(this).siblings().removeClass("activeColor")
+
+            $(this).addClass("activeColor")
+            $("#box").css("background", color);
+
+            // console.log(color);
+        })
+        $(".circle2").on("click", function () {
+
+            let color = $(this).css("background-color")
+            $(this).siblings().removeClass("activeColor")
+
+            $(this).addClass("activeColor")
+            // console.log(color);
+            $("#box2").css("background", color);
+
+        })
+
+        // circle
+        var rect = document.getElementById('rect');
+        var info = document.getElementById('info');
+        var b;
+
+        var mMove = function (event) {
+            info.innerHTML = event.offsetX + ', ' + event.offsetY;
+
+            b = document.createElement('div');
+            b.className = 'ball';
+            b.style.left = event.offsetX - 10 + 'px';
+            b.style.top = event.offsetY - 10 + 'px';
+            var color1 = $("#box2").css("background-color");
+            // console.log(color1)
+            b.style.backgroundColor = color1;
+            rect.appendChild(b);
+        };
+        var mDown = function (event) {
+            rect.addEventListener('mousemove', mMove);
+            rect.addEventListener('mouseup', mUp);
+        };
+        var mUp = function (event) {
+            rect.removeEventListener('mousemove', mMove);
+            rect.removeEventListener('mouseup', mUp);
+        };
+
+        rect.addEventListener('mousedown', mDown);
+
+
+
+    </script>
+</body>
+
+</html>

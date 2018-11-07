@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Lightgame</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: "微軟正黑體";
+            background: rgba(0, 0, 0, 0.15);
+            background: #eee;
+        }
+
+        td {
+            transition: .5s;
+        }
+
+
+        .darkbutton {
+            transition: .5s;
+            margin: 5px;
+            min-width: 90px;
+            width: calc(33% - 30px);
+            /* width: 120px; */
+            height: 120px;
+            background: gray;
+            background-clip: content-box;
+        }
+
+        .lightbutton {
+            transition: .5s;
+            margin: 5x;
+            min-width: 90px;
+            width: calc(33% - 30px);
+            /* width: 120px; */
+            height: 120px;
+            background: lightgreen;
+            background-clip: content-box;
+        }
+
+
+
+        @media screen and (max-width:720px) {
+            .form {
+                /* width: 60%; */
+                margin-left: 20px;
+            }
+
+            .text_width {
+                /* width: 40%; */
+                margin: 10px;
+            }
+        }
+
+
+
+        h2 {
+            margin-top: 40px;
+            /* text-align: center; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container ">
+        <h2>開燈遊戲</h2>
+        <h5>試著把燈全部點亮</h5>
+        
+        <h6>點任一盞燈時，上下左右都會跟著變換</h6>
+
+        <hr>
+
+    </div>
+    <div class="container">
+        <div class="container row   align-items-center justify-content-center">
+            <div class="text_width col-md">
+                <h4>縱向長度</h4>
+            </div>
+            <div class="col-md">
+                <select name="" id="selectX" class="form-control form ">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+
+                </select>
+            </div>
+            <div class="text_width col-md ">
+                <h4>橫向長度</h4>
+            </div>
+            <div class="col-md">
+                <select name="" id="selectY" class="form-control form ">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+            <button class="text_width btn btn-info col-md col-6" id="start">START</button>
+        </div>
+    </div>
+    <!-- <div class="content" id="content"></div> -->
+    <section class="container d-flex flex-wrap" id="content">
+
+        <div class="darkbutton" id="bt11"></div>
+        <div class="darkbutton" id="bt21"></div>
+        <div class="darkbutton" id="bt31"></div>
+        <div class="darkbutton" id="bt12"></div>
+        <div class="darkbutton" id="bt22"></div>
+        <div class="darkbutton" id="bt32"></div>
+        <div class="darkbutton" id="bt13"></div>
+        <div class="darkbutton" id="bt23"></div>
+        <div class="darkbutton" id="bt33"></div>
+    </section>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+
+        // $("#selectX").change(function () {
+        //     // console.log($(this).val());
+        //     var maxX = $(this).val();
+
+        // });
+        // $("#selectY").change(function () {
+        //     // console.log($(this).val());
+        //     var maxY = $(this).val();
+        //     // console.log(maxY);
+
+        // });
+
+        $("#start").on("click", function () {
+            var maxX = $("#selectX").val();
+            var maxY = $("#selectY").val();
+            // console.log(maxX);
+            // console.log(maxY);
+
+            makeGrid(maxX, maxY);
+        });
+
+        // 選不到動態元素
+        // $(".darkbutton").on("click", function () {
+        // 還是選不到 連原本的都選不到了= =
+        $("#content").on("click", ".darkbutton", function () {
+            // console.log("click")
+            changeButton(this.id);
+
+            var x = $(this).attr("id").charAt(2);
+            var y = $(this).attr("id").charAt(3);
+            var maxX = $("#selectX").val();
+            var maxY = $("#selectY").val();
+            // console.log("x=" + x)
+            // console.log("y=" + y)
+
+            if (x - 1 > 0) {
+                changeButton("bt" + (x - 1) + y);
+                // cc=("bt" + (x - 1) + y);
+                // console.log(cc);
+            }
+            if (y - 1 > 0) {
+                changeButton("bt" + x + (y - 1));
+                // cc=("bt" + x + (y - 1));
+                // console.log(cc);
+            }
+
+            var newX = 1 + parseInt(x);
+            // console.log(newX)
+
+            if (newX <= maxX) {
+                changeButton("bt" + newX + y);
+                cc = ("bt" + newX + y);
+                // console.log(cc)
+            }
+            var newY = 1 + parseInt(y);
+            if (newY <= maxY) {
+                changeButton("bt" + x + newY);
+            }
+
+            var count = $(".lightbutton").length;
+            console.log(count);
+            if ($(".lightbutton").length == maxX * maxY) {
+                setTimeout(function () { alert("恭喜你全部點亮了"); }, 500);
+
+            };
+        })
+
+        function changeButton(id) {
+            var button = document.getElementById(id);
+            // var button = "."+document.getElementById(id).className;
+
+            console.log("#" + id)
+            // if (button.className === "darkbutton") {
+            //     button.className = "lightbutton";
+            // }
+            // else {
+            //     button.className = "darkbutton";
+            // }
+            $("#" + id).toggleClass("lightbutton");
+        }
+        function makeGrid(x, y) {
+            $(".darkbutton").remove();
+            $(".lightbutton").remove();
+
+            var grid = document.getElementById("content");
+            // console.log(grid);
+            let persent = parseInt(100 / y);
+            for (var i = 1; i <= x; i++) {
+                for (var j = 1; j <= y; j++) {
+                    var button = createButton("bt" + i + j);
+                    // console.log(button);
+                    $(button).css("width", `calc(${persent}% - 21px)`)
+                    grid.appendChild(button);
+                }
+            }
+        }
+        function createButton(id) {
+            var button = document.createElement("div");
+            button.className = "darkbutton";
+            button.id = id;
+            return button;
+        }
+    </script>
+</body>
+
+</html>

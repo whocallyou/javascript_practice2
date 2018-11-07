@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Calculator</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: "微軟正黑體";
+            background: #c8c8c8;
+        }
+        </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2>計算機</h2>
+        <h5>輸入任意兩個數字可以計算加減乘除結果</h5>
+        <hr>
+        <form name="form1" onsubmit="return false;">
+            <input name="a" type="number" step="any">
+            <select name="sel" onchange="doCheck()">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+                <option value="%">%</option>
+            </select>
+            <input name="b" type="number" step="any">
+            <button onclick="doCheck()" class="btn btn-info">=</button>
+        </form>
+        <div id="info" class="font-size-bold"></div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+    <script>
+        var a = document.form1.a;
+        var b = document.form1.b;
+        var sel = document.form1.sel;
+        var info = document.getElementById('info');
+
+        function doCheck() {
+            var a1 = a.value ? parseFloat(a.value) : 0;
+            var b1 = b.value ? parseFloat(b.value) : 0;
+
+            switch (sel.value) {
+                case '+':
+                    info.innerHTML = a1 + b1;
+                    break;
+                case '-':
+                    info.innerHTML = a1 - b1;
+                    break;
+                case '*':
+                    info.innerHTML = a1 * b1;
+                    break;
+                case '/':
+                    info.innerHTML = a1 / b1;
+                    break;
+                case '%':
+                    info.innerHTML = a1 % b1;
+                    break;
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
