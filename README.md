@@ -1,7 +1,7 @@
 # javascript_practice2
 
-download 專題 dir
+1.download 專題 dir
 
-open the final.html
+2.open the final.html
 
-enjoy
+3.enjoy
